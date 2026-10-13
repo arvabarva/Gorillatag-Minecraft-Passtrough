@@ -1,0 +1,56 @@
+plugins {
+	id 'net.fabricmc.fabric-loom' version "${loom_version}"
+}
+
+loom {
+	runs {
+		client {
+			// the shared-memory frame link calls Windows through Java's foreign function API
+			vmArg "--enable-native-access=ALL-UNNAMED"
+		}
+		// opens run/saves/gptest straight away, for testing with tools/fake_gorilla.py or Gorilla Tag
+		passthroughTest {
+			client()
+			name = "Gorilla Passthrough test world"
+			vmArg "--enable-native-access=ALL-UNNAMED"
+			vmArg "-Dgorillapass.debug=true"
+			vmArg "-Dgorillapass.testLan=true"
+			programArgs "--quickPlaySingleplayer", "gptest"
+		}
+		// a second Minecraft that joins the test world over LAN, with its own link (for tools/mp_gorilla.py b)
+		passthroughTestB {
+			client()
+			name = "Gorilla Passthrough second player"
+			runDir "run-b"
+			vmArg "--enable-native-access=ALL-UNNAMED"
+			vmArg "-Dgorillapass.port=25601"
+			vmArg "-Dgorillapass.shm=Local\\GorillaPassthroughFramesB"
+			programArgs "--quickPlayMultiplayer", "localhost:25570"
+		}
+	}
+}
+
+dependencies {
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+}
+
+processResources {
+	def version = project.version
+	inputs.property "version", version
+
+	filesMatching("fabric.mod.json") {
+		expand "version": version
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = 25
+	it.options.encoding = 'UTF-8'
+}
+
+java {
+	sourceCompatibility = JavaVersion.VERSION_25
+	targetCompatibility = JavaVersion.VERSION_25
+}

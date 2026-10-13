@@ -1,0 +1,38 @@
+{
+	"schemaVersion": 1,
+	"id": "gorillapass",
+	"version": "${version}",
+	"name": "Gorilla Passthrough",
+	"description": "Passthrough link to Gorilla Tag: Minecraft keeps running and draws its world from the gorilla's eyes, Gorilla Tag shows it in VR and moves the gorilla through it. Also needed on a server (or the LAN host) for gorillas to play together.",
+	"authors": [
+		"arvabarva"
+	],
+	"contact": {
+		"homepage": "https://github.com/arvabarva/Gorillatag-Minecraft-Passtrough",
+		"sources": "https://github.com/arvabarva/Gorillatag-Minecraft-Passtrough"
+	},
+	"license": "MIT",
+	"icon": "assets/gorillapass/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.gorillapass.GorillaNet"
+		],
+		"client": [
+			"com.gorillapass.client.PassthroughClient"
+		]
+	},
+	"mixins": [
+		"gorillapass.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": "~26.3",
+		"java": ">=25",
+		"fabric-api": "*"
+	},
+	"breaks": {
+		"vivecraft": "*",
+		"iris": "*"
+	}
+}

@@ -1,0 +1,37 @@
+{
+	"required": true,
+	"package": "com.gorillapass.mixin",
+	"compatibilityLevel": "JAVA_25",
+	"mixins": [
+		"AvatarMixin",
+		"LivingEntityMixin",
+		"PlayerMixin",
+		"ServerGamePacketListenerImplMixin"
+	],
+	"client": [
+		"client.AvatarRendererMixin",
+		"client.AvatarRenderStateMixin",
+		"client.CameraMixin",
+		"client.ClientLevelMixin",
+		"client.ClientPacketListenerMixin",
+		"client.EntityRenderDispatcherMixin",
+		"client.FramerateLimitTrackerMixin",
+		"client.ItemStackRenderStateAccessor",
+		"client.LayerRenderStateAccessor",
+		"client.LivingEntityRendererMixin",
+		"client.LocalPlayerMixin",
+		"client.SpriteContentsAccessor",
+		"client.GameRendererAccessor",
+		"client.GameRendererMixin",
+		"client.GlCommandEncoderMixin",
+		"client.MinecraftMixin",
+		"client.MouseHandlerMixin",
+		"client.PlayerModelMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	}
+}
